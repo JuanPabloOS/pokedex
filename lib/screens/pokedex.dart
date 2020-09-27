@@ -10,11 +10,7 @@ class Pokedex extends StatelessWidget {
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return PokemonCard(
-            id: DUMMY_POKEMONS[index].id,
-            name: DUMMY_POKEMONS[index].name,
-            types: DUMMY_POKEMONS[index].types,
-          );
+          return PokemonCard(DUMMY_POKEMONS[index]);
         },
         itemCount: DUMMY_POKEMONS.length,
         padding: EdgeInsets.symmetric(horizontal: 5),

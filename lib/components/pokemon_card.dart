@@ -3,17 +3,21 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../models/pokemon.dart';
 import '../theme/types_colors.dart';
+import '../screens/pokemon_details.dart';
 
 class PokemonCard extends StatelessWidget {
-  final int id;
-  final String name;
-  final List<Type> types;
+  final Pokemon pokemon;
+  // final int id;
+  // final String name;
+  // final List<Type> types;
   static double cardHeight = 116;
-  PokemonCard({@required this.id, @required this.name, @required this.types});
+
+  // PokemonCard({@required this.id, @required this.name, @required this.types});
+  PokemonCard(this.pokemon);
 
   final NumberFormat formatter = new NumberFormat("000");
 
-  Text _buildPokemonName() {
+  Text _buildPokemonName(String name) {
     //Build the pokémon nam capitalizing the first letter
     return Text(
       toBeginningOfSentenceCase(name),
@@ -25,7 +29,7 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  Text _buildPokemonId() {
+  Text _buildPokemonId(int id) {
     // Build the pokemon number in the pokédex with the format 001
     return Text(
       '#${formatter.format(id)}',
@@ -37,7 +41,7 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTypesSlots() {
+  Widget _buildTypesSlots(List<Type> types) {
     // Build the icons that represents the pokémon types
     return Container(
       margin: EdgeInsets.only(top: 4),
@@ -46,7 +50,7 @@ class PokemonCard extends StatelessWidget {
         children: [
           if (types.length > 0)
             SvgPicture.asset(
-              'assets/img/types/${types[0].name}.svg',
+              'assets/img/types/${types.firstWhere((e) => e.slot == 1).name}.svg',
               placeholderBuilder: (ctx) => CircularProgressIndicator(),
               width: 30,
             ),
@@ -55,7 +59,7 @@ class PokemonCard extends StatelessWidget {
               width: 5,
             ),
             SvgPicture.asset(
-              'assets/img/types/${types[1].name}.svg',
+              'assets/img/types/${types.firstWhere((e) => e.slot == 2).name}.svg',
               placeholderBuilder: (ctx) => CircularProgressIndicator(),
               width: 30,
             ),
@@ -65,7 +69,7 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  Positioned _buildSvgPokemon() {
+  Positioned _buildSvgPokemon(int id) {
     return Positioned(
       right: 40,
       child: SvgPicture.asset(
@@ -76,46 +80,58 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
+  _showPokemonDetails(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(PokemonDetails.routeName, arguments: pokemon);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: TYPES_COLORS[types[0].name],
-      margin: EdgeInsets.only(bottom: 5),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Positioned(
-            right: 20,
-            child: Opacity(
-              opacity: 0.7,
-              child: Image.asset(
-                "assets/img/elements/pokebola.png",
-                width: 160,
+    final int id = pokemon.id;
+    final String name = pokemon.name;
+    final List<Type> types = pokemon.types;
+    return InkWell(
+      splashColor: Colors.pink,
+      onTap: () => _showPokemonDetails(context),
+      child: Card(
+        color: TYPES_COLORS[types[0].name],
+        margin: EdgeInsets.only(bottom: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned(
+              right: 20,
+              child: Opacity(
+                opacity: 0.7,
+                child: Image.asset(
+                  "assets/img/elements/pokebola.png",
+                  width: 160,
+                ),
               ),
             ),
-          ),
-          _buildSvgPokemon(),
-          Container(
-            height: cardHeight,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildPokemonId(),
-                    _buildPokemonName(),
-                    _buildTypesSlots(),
-                  ],
-                ),
-              ],
+            _buildSvgPokemon(id),
+            Container(
+              height: cardHeight,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildPokemonId(id),
+                      _buildPokemonName(name),
+                      _buildTypesSlots(types),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
