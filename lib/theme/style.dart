@@ -15,6 +15,7 @@ ThemeData appTheme() {
           headline1: TextStyle(
             color: const Color(0xff707070),
             fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
   );
