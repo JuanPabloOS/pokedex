@@ -31,6 +31,38 @@ class Stat {
     @required this.name,
     @required this.url,
   });
+  static String _getShortName(String name) {
+    switch (name) {
+      case "hp":
+        return "HP";
+        break;
+      case "attack":
+        return "ATCK";
+        break;
+      case "defense":
+        return "DF";
+        break;
+      case "special-attack":
+        return "S-ATCK";
+        break;
+      case "special-defense":
+        return "S-DEF";
+        break;
+      case "speed":
+        return "SPEED";
+        break;
+      default:
+        return name[0].toUpperCase();
+    }
+  }
+
+  factory Stat.fromJson(Map<String, dynamic> json) {
+    return Stat(
+        base: json["base_stat"],
+        effort: json["effort"],
+        name: _getShortName(json["stat"]["name"]),
+        url: json["stat"]["url"]);
+  }
 }
 
 class Pokemon {
