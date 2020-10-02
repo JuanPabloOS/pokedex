@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const Map<String, Color> TYPES_COLORS = {
   "bug": const Color.fromRGBO(139, 214, 116, 0.7),
-  "dragon": const Color(0xff62ACF2),
+  "dragon": const Color(0xff0C69C8),
   "fairy": const Color(0xffB462CD),
   "fire": const Color.fromRGBO(247, 121, 107, 0.9),
   "ghost": const Color(0xff5F47C2),
