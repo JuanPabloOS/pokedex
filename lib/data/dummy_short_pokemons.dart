@@ -1,6 +1,6 @@
 import '../models/pokemon.dart';
 
-const DUMMY_POKEMONS = [
+const POKEMONS = [
   Pokemon(
     id: 1,
     name: 'bulbasaur',
