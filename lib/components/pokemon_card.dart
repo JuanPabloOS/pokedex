@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pokedex/components/pokemon_svg.dart';
+import 'package:pokedex/helpers/formatNumber.dart';
 import '../models/pokemon.dart';
 import '../theme/types_colors.dart';
 import '../screens/pokemon_details.dart';
@@ -14,32 +16,6 @@ class PokemonCard extends StatelessWidget {
 
   // PokemonCard({@required this.id, @required this.name, @required this.types});
   PokemonCard(this.pokemon);
-
-  final NumberFormat formatter = new NumberFormat("000");
-
-  Text _buildPokemonName(String name) {
-    //Build the pokémon nam capitalizing the first letter
-    return Text(
-      toBeginningOfSentenceCase(name),
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Text _buildPokemonId(int id) {
-    // Build the pokemon number in the pokédex with the format 001
-    return Text(
-      '#${formatter.format(id)}',
-      style: TextStyle(
-        color: const Color(0xffF5F5F5),
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
 
   Widget _buildTypesSlots(List<Type> types) {
     // Build the icons that represents the pokémon types
@@ -72,23 +48,22 @@ class PokemonCard extends StatelessWidget {
   Positioned _buildSvgPokemon(int id) {
     return Positioned(
       right: 40,
-      child: SvgPicture.asset(
-        "assets/svg/$id.svg",
-        placeholderBuilder: (ctx) => CircularProgressIndicator(),
-        height: cardHeight - 10.0,
+      child: PokemonSvg(
+        pokemonId: id,
+        maxHeight: cardHeight - 10.0,
+        maxWidth: 160,
       ),
     );
   }
 
   _showPokemonDetails(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(PokemonDetails.routeName, arguments: pokemon);
+    Navigator.pushNamed(context, PokemonDetails.routeName,
+        arguments: pokemon.id);
   }
 
   @override
   Widget build(BuildContext context) {
     final int id = pokemon.id;
-    final String name = pokemon.name;
     final List<Type> types = pokemon.types;
     return InkWell(
       splashColor: Colors.pink,
@@ -122,8 +97,22 @@ class PokemonCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildPokemonId(id),
-                      _buildPokemonName(name),
+                      Text(
+                        formatNumber(pokemon.id),
+                        style: TextStyle(
+                          color: const Color(0xffF5F5F5),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        toBeginningOfSentenceCase(pokemon.name),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
                       _buildTypesSlots(types),
                     ],
                   ),
