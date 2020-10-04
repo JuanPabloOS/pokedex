@@ -16,7 +16,8 @@ class PokemonSvg extends StatelessWidget {
   @override
   ConstrainedBox build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: maxHeight, maxWidth: maxWidth),
+      constraints: BoxConstraints(
+          maxHeight: maxHeight, maxWidth: maxWidth, minWidth: maxWidth),
       child: SvgPicture.network(
         "https://www.cpokemon.com/pokes/dream-world/$pokemonId.svg",
         placeholderBuilder: (ctx) => CircularProgressIndicator(),

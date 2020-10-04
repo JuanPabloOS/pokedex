@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pokedex/components/pokemon_svg.dart';
 import 'package:pokedex/helpers/formatNumber.dart';
-import '../models/pokemon.dart';
+import '../models/pokemon_models.dart';
 import '../theme/types_colors.dart';
 import '../screens/pokemon_details.dart';
 

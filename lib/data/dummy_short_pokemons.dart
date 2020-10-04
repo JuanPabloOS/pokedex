@@ -1,4 +1,4 @@
-import '../models/pokemon.dart';
+import '../models/pokemon_models.dart';
 
 const POKEMONS = [
   Pokemon(

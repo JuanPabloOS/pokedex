@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../models/pokemon.dart';
+import '../models/pokemon_models.dart';
 
 class StatBar extends StatelessWidget {
   final Stat stat;

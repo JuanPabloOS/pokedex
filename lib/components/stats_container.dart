@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/pokemon.dart';
+import '../models/pokemon_models.dart';
 import './stat_bar.dart';
 
 class StatsContainer extends StatelessWidget {
