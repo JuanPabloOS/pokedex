@@ -4,15 +4,18 @@ import './stat_bar.dart';
 
 class StatsContainer extends StatelessWidget {
   final List<Stat> stats;
-
-  StatsContainer(this.stats);
+  final Color color;
+  StatsContainer(this.stats, this.color);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: stats
           .map(
-            (s) => StatBar(s),
+            (s) => StatBar(
+              stat: s,
+              color: color,
+            ),
           )
           .toList(),
     );

@@ -205,6 +205,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
       ),
       child: StatsContainer(
         pokemonBasicData.stats,
+        TYPES_COLORS[pokemon.types[0].name],
       ),
     );
   }

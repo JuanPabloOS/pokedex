@@ -4,8 +4,8 @@ import '../models/pokemon_models.dart';
 
 class StatBar extends StatelessWidget {
   final Stat stat;
-
-  StatBar(this.stat);
+  final Color color;
+  StatBar({@required this.stat, this.color = const Color(0xff707070)});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class StatBar extends StatelessWidget {
                   FractionallySizedBox(
                     widthFactor: stat.base / 255,
                     child: Container(
-                      color: Colors.blue,
+                      color: color,
                     ),
                   )
                 ],
