@@ -45,16 +45,16 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  Positioned _buildSvgPokemon(int id) {
-    return Positioned(
-      right: 40,
-      child: PokemonSvg(
-        pokemonId: id,
-        maxHeight: cardHeight - 10.0,
-        maxWidth: 160,
-      ),
-    );
-  }
+  // Positioned _buildSvgPokemon(int id) {
+  //   return Positioned(
+  //     right: 40,
+  //     child: PokemonSvg(
+  //       pokemonId: id,
+  //       maxHeight: cardHeight - 10.0,
+  //       maxWidth: 160,
+  //     ),
+  //   );
+  // }
 
   _showPokemonDetails(BuildContext context) {
     Navigator.pushNamed(context, PokemonDetails.routeName,
@@ -79,15 +79,29 @@ class PokemonCard extends StatelessWidget {
           children: [
             Positioned(
               right: 20,
-              child: Opacity(
-                opacity: 0.7,
-                child: Image.asset(
-                  "assets/img/elements/pokebola.png",
-                  width: 160,
+              child: Container(
+                height: cardHeight,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: cardHeight,
+                    maxWidth: 200,
+                  ),
+                  child: PokemonSvg(
+                    pokemonId: id,
+                    maxHeight: cardHeight - 10.0,
+                    maxWidth: 160,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage(
+                      "assets/img/elements/pokebola.png",
+                    ),
+                  ),
                 ),
               ),
             ),
-            _buildSvgPokemon(id),
             Container(
               height: cardHeight,
               padding: EdgeInsets.symmetric(horizontal: 10),
