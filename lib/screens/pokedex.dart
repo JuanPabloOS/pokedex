@@ -5,31 +5,101 @@ import 'package:pokedex/screens/moves_screen.dart';
 import 'package:pokedex/theme/types_colors.dart';
 import '../components/pokemon_card.dart';
 import '../data/dummy_pokemons.dart';
+import '../models/pokemon_models.dart';
 // import '../screens/moves_screen.dart';
 import '../screens/types_screen.dart';
 // import '../screens/items_screen.dart';
 
-class Pokedex extends StatelessWidget {
+class Pokedex extends StatefulWidget {
   static String routeName = "/";
 
-  // void _goToScreen(BuildContext context, String route) {
-  //   Navigator.of(context).pushNamed(route);
-  // }
+  @override
+  _PokedexState createState() => _PokedexState();
+}
 
-  Expanded _buildPokemonList(double height) {
+enum PokemonFilter { none, type, name, number }
+
+class _PokedexState extends State<Pokedex> {
+  TextEditingController _controller;
+  PokemonFilter _pokemonFilter = PokemonFilter.none;
+  String _filterValue = "";
+
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void evaluateFilter(String value) {
+    if (value.trim().length == 0) {
+      setState(() {
+        _filterValue = "";
+        _pokemonFilter = PokemonFilter.none;
+      });
+    }
+    String start = value.substring(0, 1);
+    switch (start) {
+      case ":":
+        // Filter by pokemon type
+        setState(() {
+          _filterValue = value.substring(1);
+          _pokemonFilter = PokemonFilter.type;
+        });
+        break;
+      case "#":
+        // filter by pokemon number/id
+        setState(() {
+          _filterValue = value.substring(1);
+          _pokemonFilter = PokemonFilter.number;
+        });
+        break;
+      default:
+        // filter by name
+        setState(() {
+          _filterValue = value;
+          _pokemonFilter = PokemonFilter.name;
+        });
+        break;
+    }
+  }
+
+  Expanded _buildPokemonList(
+      double height, PokemonFilter pokemonFilter, String filterValue) {
     // build the pokemon card list
+    List<Pokemon> pokemonList = [];
+    if (pokemonFilter == PokemonFilter.type) {
+      pokemonList = DUMMY_POKEMONS
+          .where((pokemon) =>
+              pokemon.types.any((type) => type.name == filterValue))
+          .toList();
+    } else if (pokemonFilter == PokemonFilter.number) {
+      pokemonList = DUMMY_POKEMONS
+          .where((pokemon) => pokemon.id.toString().startsWith(filterValue))
+          .toList();
+    } else if (pokemonFilter == PokemonFilter.name) {
+      pokemonList = DUMMY_POKEMONS
+          .where((pokemon) => pokemon.name.startsWith(filterValue))
+          .toList();
+    } else {
+      pokemonList = DUMMY_POKEMONS;
+    }
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) {
-          return PokemonCard(DUMMY_POKEMONS[index]);
+          return PokemonCard(pokemonList[index]);
         },
-        itemCount: DUMMY_POKEMONS.length,
+        itemCount: pokemonList.length,
         padding: EdgeInsets.symmetric(horizontal: 5),
       ),
     );
   }
 
   SpeedDial _buildSpeedDial(BuildContext context) {
+    // Construir los botones que constituyen el menú
     return SpeedDial(
       animatedIcon: AnimatedIcons.menu_close,
       animatedIconTheme: IconThemeData(size: 22.0),
@@ -108,6 +178,8 @@ class Pokedex extends StatelessWidget {
                     ),
                   ),
                   TextField(
+                    controller: _controller,
+                    onChanged: (value) => evaluateFilter(value),
                     decoration: InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
@@ -127,7 +199,7 @@ class Pokedex extends StatelessWidget {
                 ],
               ),
             ),
-            _buildPokemonList(height),
+            _buildPokemonList(height, _pokemonFilter, _filterValue),
           ],
         ),
       ),
