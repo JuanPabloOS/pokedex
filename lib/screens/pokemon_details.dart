@@ -31,30 +31,41 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   EvolutionChain evolutionChain;
   bool isLoading = true;
   int pokemonId = 0;
+  List<int> chainIds = [];
 
   _fetchData(id) async {
-    evolutionChain = null;
+    if (!chainIds.contains(id)) {
+      // if evolution chains does not contains the id
+      // set evolutionChain to null so it shows the circular indicator
+      evolutionChain = null;
+    }
     pokemonBasicData = await fetchPokemonBasicData(id);
     speciesFullInfo = await fetchSpeciesFullInfo(pokemon.species.url);
-    evolutionChain = await fetchEvolutionChain(speciesFullInfo.evolutionChain);
+    if (!chainIds.contains(id)) {
+      // only if chainIds does not contains the new id
+      // reload the evolutionChain
+      evolutionChain =
+          await fetchEvolutionChain(speciesFullInfo.evolutionChain);
+      setState(() {
+        chainIds = evolutionChain.chainIds;
+      });
+    }
     setState(() {
       isLoading = false;
     });
   }
 
   _updateInfo(id) {
-    _fetchData(id);
+    // Function for the carousel
     setState(() {
       pokemonId = id;
       pokemon = DUMMY_POKEMONS.firstWhere((p) => p.id == id);
     });
+    _fetchData(id);
   }
 
   @override
   void initState() {
-    // setState(() {
-    //   pokemonId = widget.id;
-    // });
     Future.delayed(Duration.zero, () {
       setState(() {
         pokemonId = ModalRoute.of(context).settings.arguments as int;
@@ -450,17 +461,24 @@ class VariantEvolution {
 }
 
 class EvolutionChain {
+  List<int> chainIds;
   BasePokemon basePokemon;
   List<VariantEvolution> variants;
 
-  EvolutionChain({@required this.basePokemon, @required this.variants});
+  EvolutionChain({
+    @required this.basePokemon,
+    @required this.variants,
+    this.chainIds = const [],
+  });
   factory EvolutionChain.fromJson(Map<String, dynamic> json) {
+    List<int> chainIds = [];
     BasePokemon basePokemon;
     List<VariantEvolution> variants = [];
 
     int _getIdFromUrl(String url) {
       var list = url.split('/'); // []
       int id = int.parse(list[list.length - 2]);
+      chainIds.add(id);
       return id;
     }
 
@@ -485,6 +503,7 @@ class EvolutionChain {
     return EvolutionChain(
       basePokemon: basePokemon,
       variants: variants,
+      chainIds: chainIds,
     );
   }
 }
