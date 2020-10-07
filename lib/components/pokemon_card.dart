@@ -9,9 +9,6 @@ import '../screens/pokemon_details.dart';
 
 class PokemonCard extends StatelessWidget {
   final Pokemon pokemon;
-  // final int id;
-  // final String name;
-  // final List<Type> types;
   static double cardHeight = 116;
 
   // PokemonCard({@required this.id, @required this.name, @required this.types});
@@ -45,17 +42,6 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  // Positioned _buildSvgPokemon(int id) {
-  //   return Positioned(
-  //     right: 40,
-  //     child: PokemonSvg(
-  //       pokemonId: id,
-  //       maxHeight: cardHeight - 10.0,
-  //       maxWidth: 160,
-  //     ),
-  //   );
-  // }
-
   _showPokemonDetails(BuildContext context) {
     Navigator.pushNamed(context, PokemonDetails.routeName,
         arguments: pokemon.id);
@@ -66,11 +52,11 @@ class PokemonCard extends StatelessWidget {
     final int id = pokemon.id;
     final List<Type> types = pokemon.types;
     return InkWell(
-      splashColor: Colors.pink,
+      splashColor: TYPES_COLORS[types[0].name],
+      borderRadius: BorderRadius.circular(15),
       onTap: () => _showPokemonDetails(context),
       child: Card(
         color: TYPES_COLORS[types[0].name],
-        margin: EdgeInsets.only(bottom: 5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
