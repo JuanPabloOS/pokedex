@@ -282,6 +282,11 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {Navigator.pop(context)},
+        child: Icon(Icons.close),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           child: pokemon == null
@@ -420,7 +425,7 @@ class SpeciesFullInfo {
       evolutionChain: json["evolution_chain"]["url"],
       flavorText: flavorTextEntry["flavor_text"].replaceAll("\n", " "),
       generation: json["generation"]["name"],
-      habitat: json["habitat"]["name"],
+      habitat: json["habitat"] != null ? json["habitat"]["name"] : "",
     );
   }
 }

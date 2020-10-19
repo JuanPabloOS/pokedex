@@ -108,7 +108,7 @@ class _PokedexState extends State<Pokedex> {
       children: [
         SpeedDialChild(
           child: Icon(Icons.donut_small),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.orangeAccent,
           label: 'Types',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => Navigator.push(
@@ -120,7 +120,7 @@ class _PokedexState extends State<Pokedex> {
         ),
         SpeedDialChild(
           child: Icon(Icons.brush),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.orangeAccent,
           label: 'Items',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => Navigator.push(
@@ -132,7 +132,7 @@ class _PokedexState extends State<Pokedex> {
         ),
         SpeedDialChild(
           child: Icon(Icons.directions_run),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.orangeAccent,
           label: 'Moves',
           labelStyle: TextStyle(fontSize: 18.0),
           onTap: () => Navigator.push(

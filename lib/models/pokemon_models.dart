@@ -78,3 +78,21 @@ class Pokemon {
     @required this.types,
   });
 }
+
+class DamageRelation {
+  final Set<String> doubleDamageFrom;
+  final Set<String> doubleDamageTo;
+  final Set<String> halfDamageFrom;
+  final Set<String> halfDamageTo;
+  final Set<String> noDamageFrom;
+  final Set<String> noDamageTo;
+
+  const DamageRelation({
+    this.doubleDamageFrom = const {},
+    this.doubleDamageTo = const {},
+    this.halfDamageFrom = const {},
+    this.halfDamageTo = const {},
+    this.noDamageFrom = const {},
+    this.noDamageTo = const {},
+  });
+}
