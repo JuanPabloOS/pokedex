@@ -96,3 +96,25 @@ class DamageRelation {
     this.noDamageTo = const {},
   });
 }
+
+class Item {
+  final int id;
+  final String name;
+  final String imgUrl;
+
+  const Item({
+    @required this.id,
+    @required this.name,
+    @required this.imgUrl,
+  });
+}
+
+class Move {
+  final int id;
+  final String name;
+
+  const Move({
+    @required this.id,
+    @required this.name,
+  });
+}
