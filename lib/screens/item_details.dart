@@ -128,7 +128,13 @@ class _ItemDetailsState extends State<ItemDetails> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              alignment: Alignment.bottomCenter,
+              image: AssetImage("assets/img/elements/pokebola.png"),
+            ),
+          ),
           child: Column(
             children: [
               if (item != null) ..._buildItemBasic(),

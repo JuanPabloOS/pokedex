@@ -25,13 +25,6 @@ class _MoveDetailsState extends State<MoveDetails> {
     });
   }
 
-  Text _textDesc(String text) {
-    return Text(
-      toBeginningOfSentenceCase(text).replaceAll("-", " "),
-      style: TextStyle(fontSize: 16, color: Colors.black87),
-    );
-  }
-
   RichText _customRichText(String title, String desc) {
     return RichText(
       text: TextSpan(
@@ -66,56 +59,57 @@ class _MoveDetailsState extends State<MoveDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.close),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (move != null)
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      toBeginningOfSentenceCase(move.name).replaceAll("-", " "),
-                      style: Theme.of(context).textTheme.headline1,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                if (moveInfo != null)
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _customRichText(
-                            "Description", moveInfo.flavorTextEntry),
-                        _customRichText("Power", moveInfo.power.toString()),
-                        _customRichText(
-                            "Prority", moveInfo.priority.toString()),
-                        _customRichText(
-                            "Accuracy", moveInfo.accuracy.toString()),
-                        _customRichText("Power Points", moveInfo.pp.toString()),
-                        _customRichText(
-                            "Type",
-                            (moveInfo.type == null
-                                ? "No type"
-                                : moveInfo.type)),
-                        _customRichText("Damage class", moveInfo.damageClass),
-                        _customRichText("Target", moveInfo.target),
-                      ],
-                    ),
-                  ),
-              ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.close),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      body: SafeArea(
+        child: Container(
+          height: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              alignment: Alignment.bottomCenter,
+              image: AssetImage("assets/img/elements/pokebola.png"),
             ),
           ),
-        ));
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (move != null)
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    toBeginningOfSentenceCase(move.name).replaceAll("-", " "),
+                    style: Theme.of(context).textTheme.headline1,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              if (moveInfo != null)
+                Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _customRichText("Description", moveInfo.flavorTextEntry),
+                      _customRichText("Power", moveInfo.power.toString()),
+                      _customRichText("Prority", moveInfo.priority.toString()),
+                      _customRichText("Accuracy", moveInfo.accuracy.toString()),
+                      _customRichText("Power Points", moveInfo.pp.toString()),
+                      _customRichText("Type",
+                          (moveInfo.type == null ? "No type" : moveInfo.type)),
+                      _customRichText("Damage class", moveInfo.damageClass),
+                      _customRichText("Target", moveInfo.target),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
