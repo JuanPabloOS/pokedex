@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:pokedex/screens/items_screen.dart';
-import 'package:pokedex/screens/moves_screen.dart';
-import 'package:pokedex/theme/types_colors.dart';
+
 import '../components/pokemon_card.dart';
 import '../data/dummy_pokemons.dart';
 import '../models/pokemon_models.dart';
-// import '../screens/moves_screen.dart';
-import '../screens/types_screen.dart';
-// import '../screens/items_screen.dart';
+import '../components/pokedex_speed_dial.dart';
 
 class Pokedex extends StatefulWidget {
   static String routeName = "/";
@@ -98,61 +93,13 @@ class _PokedexState extends State<Pokedex> {
     );
   }
 
-  SpeedDial _buildSpeedDial(BuildContext context) {
-    // Construir los botones que constituyen el menú
-    return SpeedDial(
-      animatedIcon: AnimatedIcons.menu_close,
-      animatedIconTheme: IconThemeData(size: 22.0),
-      backgroundColor: Color(0xFF64B5F6),
-      overlayColor: TYPES_COLORS["bug"],
-      children: [
-        SpeedDialChild(
-          child: Icon(Icons.donut_small),
-          backgroundColor: Colors.orangeAccent,
-          label: 'Types',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Navigator.push(
-            context,
-            new MaterialPageRoute(
-              builder: (context) => new TypesScreen(),
-            ),
-          ),
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.brush),
-          backgroundColor: Colors.orangeAccent,
-          label: 'Items',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Navigator.push(
-            context,
-            new MaterialPageRoute(
-              builder: (context) => new ItemsScreen(),
-            ),
-          ),
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.directions_run),
-          backgroundColor: Colors.orangeAccent,
-          label: 'Moves',
-          labelStyle: TextStyle(fontSize: 18.0),
-          onTap: () => Navigator.push(
-            context,
-            new MaterialPageRoute(
-              builder: (context) => new MovesScreen(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final height = mediaQuery.size.height - mediaQuery.padding.top;
     // final width = mediaQuery.size.width;
     return Scaffold(
-      floatingActionButton: _buildSpeedDial(context),
+      floatingActionButton: PokedexSpeedDial(context: context),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
