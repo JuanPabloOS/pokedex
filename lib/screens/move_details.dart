@@ -8,6 +8,7 @@ import '../models/pokemon_models.dart';
 
 class MoveDetails extends StatefulWidget {
   static String routeName = '/move-details';
+
   @override
   _MoveDetailsState createState() => _MoveDetailsState();
 }
@@ -58,6 +59,9 @@ class _MoveDetailsState extends State<MoveDetails> {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -68,44 +72,78 @@ class _MoveDetailsState extends State<MoveDetails> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: Container(
-          height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              alignment: Alignment.bottomCenter,
-              image: AssetImage("assets/img/elements/pokebola.png"),
+              image: AssetImage("assets/img/elements/background.jpg"),
+              fit: BoxFit.fill,
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (move != null)
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    toBeginningOfSentenceCase(move.name).replaceAll("-", " "),
-                    style: Theme.of(context).textTheme.headline1,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              if (moveInfo != null)
-                Center(
-                  child: Column(
+          child: Center(
+            child: Container(
+              width: w * 0.95,
+              height: h * 0.92,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 255, 255, 0.7),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Stack(
+                children: [
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _customRichText("Description", moveInfo.flavorTextEntry),
-                      _customRichText("Power", moveInfo.power.toString()),
-                      _customRichText("Prority", moveInfo.priority.toString()),
-                      _customRichText("Accuracy", moveInfo.accuracy.toString()),
-                      _customRichText("Power Points", moveInfo.pp.toString()),
-                      _customRichText("Type",
-                          (moveInfo.type == null ? "No type" : moveInfo.type)),
-                      _customRichText("Damage class", moveInfo.damageClass),
-                      _customRichText("Target", moveInfo.target),
+                      if (move != null)
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            toBeginningOfSentenceCase(move.name)
+                                .replaceAll("-", " "),
+                            style: Theme.of(context).textTheme.headline1,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      if (moveInfo != null)
+                        Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _customRichText(
+                                  "Description", moveInfo.flavorTextEntry),
+                              _customRichText(
+                                  "Power", moveInfo.power.toString()),
+                              _customRichText(
+                                  "Prority", moveInfo.priority.toString()),
+                              _customRichText(
+                                  "Accuracy", moveInfo.accuracy.toString()),
+                              _customRichText(
+                                  "Power Points", moveInfo.pp.toString()),
+                              _customRichText(
+                                  "Type",
+                                  (moveInfo.type == null
+                                      ? "No type"
+                                      : moveInfo.type)),
+                              _customRichText(
+                                  "Damage class", moveInfo.damageClass),
+                              _customRichText("Target", moveInfo.target),
+                            ],
+                          ),
+                        ),
                     ],
                   ),
-                ),
-            ],
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Opacity(
+                      opacity: 0.7,
+                      child: Image.asset(
+                        "assets/img/elements/pokedex.png",
+                        width: 70,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

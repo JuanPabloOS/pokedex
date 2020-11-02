@@ -119,6 +119,8 @@ class _ItemDetailsState extends State<ItemDetails> {
 
   @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -131,15 +133,37 @@ class _ItemDetailsState extends State<ItemDetails> {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              alignment: Alignment.bottomCenter,
-              image: AssetImage("assets/img/elements/pokebola.png"),
+              image: AssetImage("assets/img/elements/background.jpg"),
+              fit: BoxFit.fill,
             ),
           ),
-          child: Column(
-            children: [
-              if (item != null) ..._buildItemBasic(),
-              if (itemInfo != null) _buildItemInfo(),
-            ],
+          child: Center(
+            child: Container(
+              width: w *0.95,
+              height: h * 0.92,
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 255, 255, 0.7),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      if (item != null) ..._buildItemBasic(),
+                      if (itemInfo != null) _buildItemInfo(),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Opacity(
+                      opacity: 0.7,
+                      child: Image.asset("assets/img/elements/pokedex.png", width: 70,),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
