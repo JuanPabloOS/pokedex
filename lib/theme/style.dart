@@ -22,6 +22,16 @@ ThemeData appTheme() {
             fontWeight: FontWeight.bold,
             fontSize: 17,
           ),
+          headline3: TextStyle(
+            color: const Color(0xFFF57C00),
+            fontWeight: FontWeight.bold,
+            fontSize: 17,
+          ),
+          headline4: TextStyle(
+            color: const Color(0xFFF57C00),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
   );
 }
