@@ -105,7 +105,6 @@ class _PokedexState extends State<Pokedex> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: height * 0.25,
               padding: EdgeInsets.all(10),
               child: Column(
                 children: [
@@ -124,23 +123,20 @@ class _PokedexState extends State<Pokedex> {
                       color: Color(0xff707070),
                     ),
                   ),
+                  SizedBox(
+                    height: 3,
+                  ),
                   TextField(
                     controller: _controller,
                     onChanged: (value) => evaluateFilter(value),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: const Color(0xff707070)),
                     decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
-                      icon: Icon(
-                        Icons.search,
-                        color: const Color(0xff707070),
-                      ),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
+                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black54)),
+                      focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orangeAccent)),
+                      icon: Icon(Icons.search),
+                      hintText: 'Search by name, :type, #id',
+                      hintStyle: TextStyle(color: Colors.black26, fontSize: 16, fontStyle: FontStyle.italic),
+                      border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                     ),
                   ),
                 ],
