@@ -20,7 +20,6 @@ class PokemonSvg extends StatelessWidget {
           maxHeight: maxHeight, maxWidth: maxWidth, minWidth: maxWidth),
       child: SvgPicture.network(
         "https://www.cpokemon.com/pokes/dream-world/$pokemonId.svg",
-        placeholderBuilder: (ctx) => CircularProgressIndicator(),
         height: maxHeight,
       ),
     );
