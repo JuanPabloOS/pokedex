@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 import '../models/pokemon_models.dart';
+import 'package:flutter_placeholder_textlines/flutter_placeholder_textlines.dart';
 
 class MoveDetails extends StatefulWidget {
   static String routeName = '/move-details';
@@ -31,7 +32,7 @@ class _MoveDetailsState extends State<MoveDetails> {
       text: TextSpan(
           text: title + ": ",
           style: TextStyle(
-            color: const Color(0xFF707070),
+            color: const Color(0xFFF57C00),
             fontWeight: FontWeight.bold,
             fontSize: 17,
           ),
@@ -98,36 +99,47 @@ class _MoveDetailsState extends State<MoveDetails> {
                           child: Text(
                             toBeginningOfSentenceCase(move.name)
                                 .replaceAll("-", " "),
-                            style: Theme.of(context).textTheme.headline1,
+                            style: Theme.of(context).textTheme.headline4,
                             textAlign: TextAlign.center,
                           ),
                         ),
-                      if (moveInfo != null)
-                        Center(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _customRichText(
-                                  "Description", moveInfo.flavorTextEntry),
-                              _customRichText(
-                                  "Power", moveInfo.power.toString()),
-                              _customRichText(
-                                  "Prority", moveInfo.priority.toString()),
-                              _customRichText(
-                                  "Accuracy", moveInfo.accuracy.toString()),
-                              _customRichText(
-                                  "Power Points", moveInfo.pp.toString()),
-                              _customRichText(
-                                  "Type",
-                                  (moveInfo.type == null
-                                      ? "No type"
-                                      : moveInfo.type)),
-                              _customRichText(
-                                  "Damage class", moveInfo.damageClass),
-                              _customRichText("Target", moveInfo.target),
-                            ],
-                          ),
-                        ),
+                      moveInfo == null
+                          ? PlaceholderLines(
+                              maxOpacity: 0.7,
+                              animate: true,
+                              count: 5,
+                              lineHeight: 16,
+                              align: TextAlign.center,
+                              color: Colors.orangeAccent,
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _customRichText("Description",
+                                        moveInfo.flavorTextEntry),
+                                    _customRichText(
+                                        "Power", moveInfo.power.toString()),
+                                    _customRichText("Prority",
+                                        moveInfo.priority.toString()),
+                                    _customRichText("Accuracy",
+                                        moveInfo.accuracy.toString()),
+                                    _customRichText(
+                                        "Power Points", moveInfo.pp.toString()),
+                                    _customRichText(
+                                        "Type",
+                                        (moveInfo.type == null
+                                            ? "No type"
+                                            : moveInfo.type)),
+                                    _customRichText(
+                                        "Damage class", moveInfo.damageClass),
+                                    _customRichText("Target", moveInfo.target),
+                                  ],
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                   Positioned(

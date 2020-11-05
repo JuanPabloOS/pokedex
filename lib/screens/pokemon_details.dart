@@ -12,9 +12,11 @@ import '../components/stats_container.dart';
 import '../components/pair_evolution.dart';
 import '../futures/pokemon_futures.dart';
 import '../models/pokemon_models_futures.dart';
+import 'package:flutter_placeholder_textlines/flutter_placeholder_textlines.dart';
 
 class PokemonDetails extends StatefulWidget {
   static String routeName = "/pokemon-details";
+
   // final int id;
 
   // PokemonDetails({@required this.id});
@@ -278,7 +280,14 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   Widget _buildEvolutionChain(
       BuildContext context, EvolutionChain evolutionChain) {
     if (evolutionChain == null) {
-      return _buildCircularIndicator();
+      return PlaceholderLines(
+        maxOpacity: 0.7,
+        animate: true,
+        count: 1,
+        lineHeight: 75,
+        align: TextAlign.center,
+        color: TYPES_COLORS[pokemon.types[0].name],
+      );
     }
     List<PairEvolution> elements = [];
 
@@ -364,19 +373,38 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                                         children: [
                                           pokemonBasicData != null
                                               ? _buildTypesSlots(pokemon.types)
-                                              : _buildCircularIndicator(),
+                                              : Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 10),
+                                                  child: PlaceholderLines(
+                                                    animate: true,
+                                                    count: 3,
+                                                    maxWidth: 0.7,
+                                                    align: TextAlign.center,
+                                                    color: TYPES_COLORS[
+                                                        pokemon.types[0].name],
+                                                  ),
+                                                ),
                                           speciesFullInfo != null
                                               ? _buildPokemonDescription()
-                                              : _buildCircularIndicator(),
-                                          pokemonBasicData != null
-                                              ? _buildPokemonHW(
-                                                  pokemonBasicData.weight,
-                                                  pokemonBasicData.height)
-                                              : _buildCircularIndicator(),
-                                          pokemonBasicData != null
-                                              ? _buildPokemonStats(
-                                                  pokemonBasicData.stats)
-                                              : _buildCircularIndicator(),
+                                              : Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 10),
+                                                  child: PlaceholderLines(
+                                                    animate: true,
+                                                    count: 3,
+                                                    align: TextAlign.center,
+                                                    color: TYPES_COLORS[
+                                                        pokemon.types[0].name],
+                                                  ),
+                                                ),
+                                          if (pokemonBasicData != null)
+                                            _buildPokemonHW(
+                                                pokemonBasicData.weight,
+                                                pokemonBasicData.height),
+                                          if (pokemonBasicData != null)
+                                            _buildPokemonStats(
+                                                pokemonBasicData.stats),
                                           _buildEvolutionChain(
                                               context, evolutionChain),
                                         ],

@@ -29,7 +29,7 @@ class MovesScreen extends StatelessWidget {
               child: ListView.builder(
                 itemBuilder: (ctx, index) {
                   return InkWell(
-                    splashColor: Color(0xFF707070),
+                    splashColor: Colors.orangeAccent,
                     borderRadius: BorderRadius.circular(5),
                     onTap: () {
                       Navigator.of(context).pushNamed(MoveDetails.routeName,

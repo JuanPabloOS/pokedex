@@ -5,6 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 import '../models/pokemon_models.dart';
 import '../data/dummy_items.dart';
+import 'package:flutter_placeholder_textlines/flutter_placeholder_textlines.dart';
 
 class ItemDetails extends StatefulWidget {
   static String routeName = '/item-details';
@@ -19,6 +20,7 @@ class _ItemDetailsState extends State<ItemDetails> {
   Item item;
 
   ItemInfo itemInfo;
+
   _fetchData() async {
     ItemInfo flag =
         await fetchItemInfo("https://pokeapi.co/api/v2/item/$idItem");
@@ -44,7 +46,7 @@ class _ItemDetailsState extends State<ItemDetails> {
     return RichText(
       text: TextSpan(
         text: '   • ',
-        style: TextStyle(color: Colors.black, fontSize: 16),
+        style: TextStyle(color: Colors.orange, fontSize: 16),
         children: <TextSpan>[
           TextSpan(
             text: toBeginningOfSentenceCase(text).replaceAll("-", " "),
@@ -69,7 +71,7 @@ class _ItemDetailsState extends State<ItemDetails> {
         padding: EdgeInsets.all(10),
         child: Text(
           toBeginningOfSentenceCase(item.name).replaceAll("-", " "),
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.headline4,
           textAlign: TextAlign.center,
         ),
       ),
@@ -96,18 +98,18 @@ class _ItemDetailsState extends State<ItemDetails> {
             Text(
               "Category:",
               textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.headline3,
             ),
             _textDesc(itemInfo.category),
             Text(
               "Description:",
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context).textTheme.headline3,
             ),
             _textDesc(itemInfo.flavorTextEntry),
             if (itemInfo.attributes.length > 0) ...[
               Text(
                 "Attributes:",
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.headline3,
               ),
               ...itemInfo.attributes.map((e) => _listItem(e)).toList(),
             ]
@@ -139,7 +141,7 @@ class _ItemDetailsState extends State<ItemDetails> {
           ),
           child: Center(
             child: Container(
-              width: w *0.95,
+              width: w * 0.95,
               height: h * 0.92,
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(255, 255, 255, 0.7),
@@ -150,7 +152,16 @@ class _ItemDetailsState extends State<ItemDetails> {
                   Column(
                     children: [
                       if (item != null) ..._buildItemBasic(),
-                      if (itemInfo != null) _buildItemInfo(),
+                      itemInfo == null
+                          ? PlaceholderLines(
+                              maxOpacity: 0.7,
+                              animate: true,
+                              count: 5,
+                              lineHeight: 16,
+                              align: TextAlign.center,
+                              color: Colors.orangeAccent,
+                            )
+                          : _buildItemInfo(),
                     ],
                   ),
                   Positioned(
@@ -158,7 +169,10 @@ class _ItemDetailsState extends State<ItemDetails> {
                     right: 0,
                     child: Opacity(
                       opacity: 0.7,
-                      child: Image.asset("assets/img/elements/pokedex.png", width: 70,),
+                      child: Image.asset(
+                        "assets/img/elements/pokedex.png",
+                        width: 70,
+                      ),
                     ),
                   ),
                 ],
