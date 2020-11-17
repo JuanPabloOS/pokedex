@@ -31,7 +31,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       endAnimation: '2',
       loopAnimation: 'Cola',
       backgroundColor: Colors.white,
-      until: () => Future.delayed(Duration(seconds: 5)),
+      until: () => Future.delayed(Duration(seconds: 4)),
     );
   }
 }
