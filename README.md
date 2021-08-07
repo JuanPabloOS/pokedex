@@ -27,5 +27,5 @@ The main page of the pokédex shows a list of pokemons with a search input where
 - [flutter_speed_dial](https://pub.dev/packages/flutter_speed_dial) To build the menu
 - [carousel_slider](https://pub.dev/packages/flutter_speed_dial) To build the slider of pokémons
 - [flutter_placeholder_textlines](https://pub.dev/packages/flutter_placeholder_textlines) To show placeholders while performing API requests
-- [flare_splash_screen] to show the Marill that appears when you open the app
+- [flare_splash_screen]((https://pub.dev/packages/flare_splash_screen)) to show the Marill that appears when you open the app
 - You can find the icons I'm using fot the pokémons type [here](https://www.sketchappsources.com/resource/download-3954.html)
