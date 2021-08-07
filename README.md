@@ -11,10 +11,10 @@ So what this pokédex do is:
 - Provide a list of 50 items
 - A dynamic table of comparison where you can check effectiveness between pokémon types
 
-![](https://github.com/JuanPabloOS/pokedex/tree/master/readme-assets/filter.gif)
-![](https://github.com/JuanPabloOS/pokedex/tree/master/readme-assets/slider.gif)
-![](https://github.com/JuanPabloOS/pokedex/tree/master/readme-assets/comparison.gif)
-![](https://github.com/JuanPabloOS/pokedex/tree/master/readme-assets/types.gif)
+![](https://github.com/JuanPabloOS/pokedex/blob/master/readme-assets/filter.gif)
+![](https://github.com/JuanPabloOS/pokedex/blob/master/readme-assets/slider.gif)
+![](https://github.com/JuanPabloOS/pokedex/blob/master/readme-assets/comparison.gif)
+![](https://github.com/JuanPabloOS/pokedex/blob/master/readme-assets/types.gif)
 ## How to filter
 
 The main page of the pokédex shows a list of pokemons with a search input where you can start writing a pokemon name and see the results, but you can also filter by type or id, to filter by *id* just write the id you want prefixed by a **#** and if you want to filter by type prefix the type with **:**
